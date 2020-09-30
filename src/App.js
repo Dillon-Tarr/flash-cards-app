@@ -64,7 +64,7 @@ export default class App extends Component {
     else if(typeof this.state.activeCollection == 'string'){
       content = (
         <div id="active-collection-container">
-          <ActiveCollection />
+          <ActiveCollection cards = {this.state.currentCollection.cards}/>
         </div>
       );
     }
