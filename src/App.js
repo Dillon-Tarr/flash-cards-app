@@ -36,7 +36,7 @@ export default class App extends Component {
           </div>
         </div>
         <div id="my-collections">
-          
+
         </div>
       </div>
     )
@@ -60,13 +60,15 @@ export default class App extends Component {
     let buttons = [];
     for(let i = 0; i < allCollections.length; i++){
       let collectionTitle = allCollections[i].title;
-      buttons.push(this.renderCollectionButton(collectionTitle, i));
+      let collectionLength = allCollections[i].cards.length;
+      console.log(collectionLength);
+      buttons.push(this.renderCollectionButton(collectionTitle, collectionLength, i));
     }
     return buttons;
   }
 
-  renderCollectionButton(collectionTitle, i){
-    return <CollectionButton key={`collection-button${i + 1}`} collectionTitle={collectionTitle}/>
+  renderCollectionButton(collectionTitle, collectionLength, i){
+    return <CollectionButton key={`collection-button${i + 1}`} collectionTitle={collectionTitle} numberOfCards={collectionLength}/>
   }
 
 }

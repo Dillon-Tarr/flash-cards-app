@@ -7,7 +7,8 @@ export default function CollectionButton(props) {
         <div className="card card-main-back"></div>
         <div className="card card-main-middle"></div>
         <div className="card card-main-front">
-          <p>{props.collectionTitle}</p>
+          <p>{props.collectionTitle}<br/>
+          ({props.numberOfCards})</p>
         </div>
       </div>
     </button>
