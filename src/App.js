@@ -2,14 +2,14 @@ import './App.css'
 import React, { Component } from 'react'
 import axios from 'axios'
 import CollectionButton from './components/CollectionButton/CollectionButton';
+import ActiveCollection from './components/ActiveCollection/ActiveCollection';
 
 export default class App extends Component {
   constructor(props){
     super(props);
     this.state = {
       allCollections: [],
-      activeCollection: null,
-      mainContentTitle: `My Collections`
+      activeCollection: null
     }
   }
 
@@ -29,12 +29,7 @@ export default class App extends Component {
   render() {
     return (
       <div id="app">
-        <div id="main-content">
-          <h1 id="main-content-title">{this.state.mainContentTitle}</h1>
-          <div id="main-content-buttons" className="flex-container">
-            {this.renderCollectionButtons()}
-          </div>
-        </div>
+        {this.getMainContent()}
         <div id="my-collections">
 
         </div>
@@ -42,17 +37,36 @@ export default class App extends Component {
     )
   }
 
-  setMainContentTitle(){
-    let newTitle;
+  getMainContent(){
+    let title;
+    let content;
     if(this.state.activeCollection === null){
-      newTitle = 'My Collections';
+      title = 'My Collections';
+      content = (
+        <div id="main-content">
+          <h1 id="main-content-title">{title}</h1>
+          <div id="main-content-buttons" className="flex-container">
+            {this.renderCollectionButtons()}
+          </div>
+        </div>
+      );
+    }
+    else if(typeof this.state.activeCollection == 'string'){
+      title = this.state.activeCollection.title;
+      content = (
+        <div id="main-content">
+          <h1 id="main-content-title">{title}</h1>
+          <div id="active-collection">
+            <ActiveCollection />
+          </div>
+      </div>
+      );
     }
     else{
-      newTitle = this.state.activeCollection.title;
+      title = this.state.activeCollection.title;
+      content = (<h1>ya dun messed up</h1>);
     }
-    this.setState({
-      mainContentTitle: newTitle
-    });
+    return content;
   }
 
   renderCollectionButtons(){
@@ -61,7 +75,6 @@ export default class App extends Component {
     for(let i = 0; i < allCollections.length; i++){
       let collectionTitle = allCollections[i].title;
       let collectionLength = allCollections[i].cards.length;
-      console.log(collectionLength);
       buttons.push(this.renderCollectionButton(collectionTitle, collectionLength, i));
     }
     return buttons;
