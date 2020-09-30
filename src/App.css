@@ -58,7 +58,7 @@ button {
   max-width: 98%;
   margin: 0px 1%;
 }
-#main-content-buttons {
+#all-collections-container {
   justify-content: space-around;
   max-width: 80%;
   margin: 0px auto;

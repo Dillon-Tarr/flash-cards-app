@@ -29,7 +29,11 @@ export default class App extends Component {
   render() {
     return (
       <div id="app">
-        {this.getMainContent()}
+        <div id="main-content">
+          <h1 id="main-content-title">{this.getTitle()}</h1>
+          {this.getMainContent()}
+        </div>
+
         <div id="my-collections">
 
         </div>
@@ -37,33 +41,34 @@ export default class App extends Component {
     )
   }
 
-  getMainContent(){
+  getTitle(){
     let title;
-    let content;
     if(this.state.activeCollection === null){
       title = 'My Collections';
+    }
+    else if(typeof this.state.activeCollection == 'string'){
+      title = this.state.activeCollection.title;
+    }
+    return title;
+  }
+
+  getMainContent(){
+    let content;
+    if(this.state.activeCollection === null){
       content = (
-        <div id="main-content">
-          <h1 id="main-content-title">{title}</h1>
-          <div id="main-content-buttons" className="flex-container">
-            {this.renderCollectionButtons()}
-          </div>
+        <div id="all-collections-container" className="flex-container">
+          {this.renderCollectionButtons()}
         </div>
       );
     }
     else if(typeof this.state.activeCollection == 'string'){
-      title = this.state.activeCollection.title;
       content = (
-        <div id="main-content">
-          <h1 id="main-content-title">{title}</h1>
-          <div id="active-collection">
-            <ActiveCollection />
-          </div>
-      </div>
+        <div id="active-collection-container">
+          <ActiveCollection />
+        </div>
       );
     }
     else{
-      title = this.state.activeCollection.title;
       content = (<h1>ya dun messed up</h1>);
     }
     return content;
