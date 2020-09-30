@@ -1,7 +1,7 @@
 import './App.css'
 import React, { Component } from 'react'
 import axios from 'axios'
-import MainContent from './components/MainContent/MainContent';
+import CollectionButton from './components/CollectionButton/CollectionButton';
 
 export default class App extends Component {
   constructor(props){
@@ -28,8 +28,16 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
-        <MainContent mainContentTitle={this.state.mainContentTitle}/>
+      <div id="app">
+        <div id="main-content">
+          <h1 id="main-content-title">{this.state.mainContentTitle}</h1>
+          <div id="main-content-buttons" className="flex-container">
+            {this.renderCollectionButtons()}
+          </div>
+        </div>
+        <div id="my-collections">
+          
+        </div>
       </div>
     )
   }
@@ -45,6 +53,20 @@ export default class App extends Component {
     this.setState({
       mainContentTitle: newTitle
     });
+  }
+
+  renderCollectionButtons(){
+    let allCollections = this.state.allCollections;
+    let buttons = [];
+    for(let i = 0; i < allCollections.length; i++){
+      let collectionTitle = allCollections[i].title;
+      buttons.push(this.renderCollectionButton(collectionTitle, i));
+    }
+    return buttons;
+  }
+
+  renderCollectionButton(collectionTitle, i){
+    return <CollectionButton key={`collection-button${i + 1}`} collectionTitle={collectionTitle}/>
   }
 
 }
