@@ -44,6 +44,33 @@ export default class ActiveCollection extends Component {
     }
   }
 
+  getNextCard = () => {
+    let nextCard;
+    if(this.state.currentCardNumber === this.props.cards.length){
+      nextCard = 1;      
+    }
+    else{
+      nextCard = this.state.currentCardNumber + 1;
+    }
+    this.setState({
+      currentCard: this.props.cards[nextCard - 1],
+      currentCardNumber: nextCard
+    })
+  }
+  getPreviousCard = () => {
+    let nextCard;
+    if(this.state.currentCardNumber === 1){
+      nextCard = this.props.cards.length;      
+    }
+    else{
+      nextCard = this.state.currentCardNumber - 1;
+    }
+    this.setState({
+      currentCard: this.props.cards[nextCard + 1],
+      currentCardNumber: nextCard
+
+    })
+  }
   flipCard = () => {
     let newDisplayState = !this.state.displayWord;
     this.setState({
