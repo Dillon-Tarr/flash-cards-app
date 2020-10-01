@@ -41,18 +41,18 @@ export default class App extends Component {
     )
   }
 
-  getTitle(){
+  getTitle = () => {
     let title;
     if(this.state.activeCollection === null){
       title = 'My Collections';
     }
-    else if(typeof this.state.activeCollection == 'string'){
+    else if(typeof this.state.activeCollection == 'object'){
       title = this.state.activeCollection.title;
     }
     return title;
   }
 
-  getMainContent(){
+  getMainContent = () => {
     let content;
     if(this.state.activeCollection === null){
       content = (
@@ -61,10 +61,12 @@ export default class App extends Component {
         </div>
       );
     }
-    else if(typeof this.state.activeCollection == 'string'){
+    else if(typeof this.state.activeCollection == 'object'){
       content = (
         <div id="active-collection-container">
-          <ActiveCollection cards = {this.state.currentCollection.cards}/>
+          <ActiveCollection
+          cards={this.state.activeCollection.cards}
+          />
         </div>
       );
     }
@@ -74,19 +76,31 @@ export default class App extends Component {
     return content;
   }
 
-  renderCollectionButtons(){
-    let allCollections = this.state.allCollections;
+  renderCollectionButtons = () => {
     let buttons = [];
-    for(let i = 0; i < allCollections.length; i++){
-      let collectionTitle = allCollections[i].title;
-      let collectionLength = allCollections[i].cards.length;
-      buttons.push(this.renderCollectionButton(collectionTitle, collectionLength, i));
+    for(let i = 0; i < this.state.allCollections.length; i++){
+      buttons.push(this.renderCollectionButton(i));
     }
     return buttons;
   }
 
-  renderCollectionButton(collectionTitle, collectionLength, i){
-    return <CollectionButton key={`collection-button${i + 1}`} collectionTitle={collectionTitle} numberOfCards={collectionLength}/>
+  renderCollectionButton = (i) => {
+    return <CollectionButton
+    key={`collection-button-index${i}`}
+    collection={this.state.allCollections[i]}
+    setActiveCollection={this.setActiveCollection}/>
   }
 
+  setActiveCollection = (_id) => {
+    let collection = this.state.allCollections.filter((el) => {
+      return _id === el._id;
+    });
+    collection = collection[0];
+    console.log(`setActiveCollection() ran with _id as: ${_id}`);
+    this.setState({
+      activeCollection: collection
+    });
+  }
+  
+  // `5f726d81879a6422645f5609`
 }

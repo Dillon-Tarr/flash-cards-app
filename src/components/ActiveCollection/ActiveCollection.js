@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class ActiveCollection extends Component {
   constructor(props){
     super(props);
-    state = {
+    this.state = {
       cards: this.props.cards,
       currentCard:this.props.cards[0],
       currentCardIndex: 0,
@@ -11,14 +11,14 @@ export default class ActiveCollection extends Component {
     }
   }
   renderWordOrDefinition(){
-    if(displayWord === false){
+    if(this.state.displayWord === false){
       return (
-        <p id= "word">{currentCard.word}</p>
+        <p id= "word">{this.state.currentCard.word}</p>
       )
     }
     else{
       return(
-        <p id= "definition">{currentCard.definition}</p>
+        <p id= "definition">{this.state.currentCard.definition}</p>
       )
     }
   }
