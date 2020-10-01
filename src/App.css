@@ -1,6 +1,6 @@
 body {
   background-color: rgb(14, 14, 14);
-  color: rgb(235, 235, 235);
+  color: whitesmoke;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 button {
@@ -11,13 +11,13 @@ button {
   display: flex;
   flex-flow: row wrap;
 }
-.collection-container-main {
+.collection-cards {
   position: relative;
   height: 322px;
   width: 228px;
   padding: 0rem 2rem 2rem;
 }
-.collection-container-main p {
+.collection-cards p {
   font-size: 2rem;
   padding-top: 4rem;
   text-align: center;
@@ -26,6 +26,7 @@ button {
   border: solid rgb(197, 197, 197) 2px;
   border-radius: 8px;
   background-color: whitesmoke;
+  color: rgb(14, 14, 14);
   margin: 0px;
   padding: 0px;
 }
@@ -58,8 +59,8 @@ button {
   max-width: 98%;
   margin: 0px 1%;
 }
-#all-collections-container {
-  justify-content: space-around;
+#all-collections {
+  justify-content: center;
   max-width: 80%;
   margin: 0px auto;
   padding: 2rem 2rem 0rem 0rem;
@@ -70,13 +71,21 @@ button {
   text-align: center;
   font-size: 2.6rem;
 }
-#collection-container-active {
+#active-collection {
+  justify-content: center;
+  max-width: 80%;
+  margin: 0px auto;
+  padding: 2rem 2rem 0rem 0rem;
+  border: solid rgb(197, 197, 197) 2px;
+  border-radius: 12px;
+}
+#active-collection-cards {
   position: relative;
   height: 322px;
   width: 228px;
   padding: 0rem 2rem 2rem;
 }
-#card-main-back {
+#card-active-back {
   position: absolute;
   height: 300px;
   width: 210px;
@@ -84,7 +93,7 @@ button {
   top: 0px;
   z-index: 10;
 }
-#card-main-middle {
+#card-active-middle {
   position: absolute;
   height: 300px;
   width: 210px;
@@ -92,13 +101,36 @@ button {
   top: 8px;
   z-index: 20;
 }
-#card-main-front {
+#card-active-front {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
   position: absolute;
   height: 300px;
   width: 210px;
   left: 44px;
   top: 16px;
   z-index: 30;
+}
+#word {
+  margin: 0px;
+  text-align: center;
+  padding-top: 1rem;
+  font-size: 3rem;
+}
+#definition {
+  margin: 0px;
+  text-align: center;
+  padding: 1rem .5rem 0rem;
+  font-size: 1.5rem;
+}
+#flip-card-button-holder {
+  text-align: center;
+  padding: 1rem 0rem;
+  border: dashed rgb(14, 14, 14) 2px;
+  border-radius: 12px;
+  margin: 0px 3rem;
+  z-index: 31;
 }
 
 @media only screen and (min-width: 768px) {

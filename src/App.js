@@ -56,14 +56,14 @@ export default class App extends Component {
     let content;
     if(this.state.activeCollection === null){
       content = (
-        <div id="all-collections-container" className="flex-container">
+        <div id="all-collections" className="flex-container">
           {this.renderCollectionButtons()}
         </div>
       );
     }
     else if(typeof this.state.activeCollection == 'object'){
       content = (
-        <div id="active-collection-container">
+        <div id="active-collection" className="flex-container">
           <ActiveCollection
           cards={this.state.activeCollection.cards}
           />
@@ -101,6 +101,6 @@ export default class App extends Component {
       activeCollection: collection
     });
   }
-  
+
   // `5f726d81879a6422645f5609`
 }
