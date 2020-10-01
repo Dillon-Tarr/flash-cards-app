@@ -4,8 +4,9 @@ export default class ActiveCollection extends Component {
   constructor(props){
     super(props);
     this.state = {
-      cards: this.props.cards,
-      currentCard:this.props.cards[0],
+      activeCollection: this.props.activeCollection,
+      cards: this.props.activeCollection.cards,
+      currentCard: this.props.activeCollection.cards[0],
       currentCardNumber: 1,
       displayWord: false
     }

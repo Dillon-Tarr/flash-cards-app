@@ -65,7 +65,7 @@ export default class App extends Component {
       content = (
         <div id="active-collection">
           <ActiveCollection
-          cards={this.state.activeCollection.cards}
+          activeCollection={this.state.activeCollection}
           />
         </div>
       );
