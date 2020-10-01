@@ -24,10 +24,10 @@ export default class ActiveCollection extends Component {
   }
   render() {
     return (
-      <div id="collection-container-active">
-        <div id="card card-active-back"></div>
-        <div id="card card-active-middle"></div>
-        <div id="card card-active-front">
+      <div id="active-collection-cards">
+        <div className="card" id="card-active-back"></div>
+        <div className="card" id="card-active-middle"></div>
+        <div className="card" id="card-active-front">
           {this.renderWordOrDefinition()}
         </div>
       </div>
