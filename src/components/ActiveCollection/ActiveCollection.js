@@ -14,6 +14,9 @@ export default class ActiveCollection extends Component {
   render() {
     return (
       <div id="container-for-previous-and-next-buttons">
+        <button onClick={this.goToPreviousCard}>
+          <div className="previous-or-next-button-holder"><img className="previous-or-next-button" src={require('../../images/previousCardArrow.png')} alt="Previous Button"/></div>
+        </button>
         <div id="active-collection-cards">
           <button onClick={this.flipCard}>
             <div className="card" id="card-active-back"></div>
@@ -27,6 +30,9 @@ export default class ActiveCollection extends Component {
             </div>
           </button>
         </div>
+        <button onClick={this.goToNextCard}>
+          <div className="previous-or-next-button-holder"><img className="previous-or-next-button" src={require('../../images/nextCardArrow.png')} alt="Next Button"/></div>
+        </button>
       </div>
     )
   }

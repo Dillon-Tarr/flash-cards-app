@@ -63,7 +63,7 @@ export default class App extends Component {
     }
     else if(typeof this.state.activeCollection == 'object'){
       content = (
-        <div id="active-collection" className="flex-container">
+        <div id="active-collection">
           <ActiveCollection
           cards={this.state.activeCollection.cards}
           />
