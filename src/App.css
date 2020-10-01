@@ -79,6 +79,9 @@ button {
   border: solid rgb(197, 197, 197) 2px;
   border-radius: 12px;
 }
+#container-for-previous-and-next-buttons{
+  font-size: 3rem;
+}
 #active-collection-cards {
   position: relative;
   height: 322px;
@@ -127,11 +130,15 @@ button {
 #flip-card-image-holder {
   text-align: center;
   padding: 0rem 0rem;
-  margin: 0px 1rem;
+  margin: 0px 3rem;
   z-index: 31;
 }
 #flip-card-image {
   width: 100%;
+}
+#card-count-text {
+  font-size: 1.5rem;
+  margin: 0px 0px .5rem;
 }
 
 @media only screen and (min-width: 768px) {

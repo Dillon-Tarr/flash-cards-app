@@ -6,22 +6,27 @@ export default class ActiveCollection extends Component {
     this.state = {
       cards: this.props.cards,
       currentCard:this.props.cards[0],
-      currentCardIndex: 0,
+      currentCardNumber: 1,
       displayWord: false
     }
   }
 
   render() {
     return (
-      <div id="active-collection-cards">
-        <button onClick={this.flipCard}>
-          <div className="card" id="card-active-back"></div>
-          <div className="card" id="card-active-middle"></div>
-          <div className="card" id="card-active-front">
-          {this.renderWordOrDefinition()}
-          <p id="flip-card-image-holder"><img id="flip-card-image" src={require('../../images/flipArrow.png')} alt="Flip Card"/></p>
+      <div id="container-for-previous-and-next-buttons">
+        <div id="active-collection-cards">
+          <button onClick={this.flipCard}>
+            <div className="card" id="card-active-back"></div>
+            <div className="card" id="card-active-middle"></div>
+            <div className="card" id="card-active-front">
+            {this.renderWordOrDefinition()}
+              <div>
+                <p id="flip-card-image-holder"><img id="flip-card-image" src={require('../../images/flipArrow.png')} alt="Flip Card"/></p>
+                <p id="card-count-text">{this.state.currentCardNumber}/{this.state.cards.length}</p>
+              </div>
+            </div>
+          </button>
         </div>
-        </button>
       </div>
     )
   }
