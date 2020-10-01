@@ -19,7 +19,7 @@ export default class ActiveCollection extends Component {
           <div className="card" id="card-active-middle"></div>
           <div className="card" id="card-active-front">
           {this.renderWordOrDefinition()}
-          <p id="flip-card-button-holder">Flip Card</p>
+          <p id="flip-card-image-holder"><img id="flip-card-image" src={require('../../images/flipArrow.png')} alt="Flip Card"/></p>
         </div>
         </button>
       </div>

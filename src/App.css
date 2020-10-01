@@ -124,13 +124,14 @@ button {
   padding: 1rem .5rem 0rem;
   font-size: 1.5rem;
 }
-#flip-card-button-holder {
+#flip-card-image-holder {
   text-align: center;
-  padding: 1rem 0rem;
-  border: dashed rgb(14, 14, 14) 2px;
-  border-radius: 12px;
+  padding: 0rem 0rem;
   margin: 0px 3rem;
   z-index: 31;
+}
+#flip-card-image {
+  width: 100%;
 }
 
 @media only screen and (min-width: 768px) {
