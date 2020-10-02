@@ -147,7 +147,7 @@ export default class ActiveCollection extends Component {
   deleteCardFromActiveCollection(){
     var collectionId = this.activeCollection._id;
     let cardToDeleteId = this.state.currentCard._id;
-    axios.delete(`http://localhost:5000/api/collections/${collectionId}/cards`, cardToDeleteId)
+    axios.delete(`http://localhost:5000/api/collections/${collectionId}/cards/${cardToDeleteId}`)
     .then((response) => {
       console.log(response.data);
       
