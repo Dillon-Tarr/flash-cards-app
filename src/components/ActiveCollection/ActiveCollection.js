@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 
 export default class ActiveCollection extends Component {
@@ -57,27 +58,27 @@ export default class ActiveCollection extends Component {
 
   getNextCard = () => {
     let nextCard;
-    if(this.state.currentCardNumber === this.props.cards.length){
+    if(this.state.currentCardNumber === this.state.cards.length){
       nextCard = 1;      
     }
     else{
       nextCard = this.state.currentCardNumber + 1;
     }
     this.setState({
-      currentCard: this.props.cards[nextCard - 1],
+      currentCard: this.state.cards[nextCard - 1],
       currentCardNumber: nextCard
     })
   }
   getPreviousCard = () => {
     let nextCard;
     if(this.state.currentCardNumber === 1){
-      nextCard = this.props.cards.length;      
+      nextCard = this.state.cards.length;      
     }
     else{
       nextCard = this.state.currentCardNumber - 1;
     }
     this.setState({
-      currentCard: this.props.cards[nextCard - 1],
+      currentCard: this.state.cards[nextCard - 1],
       currentCardNumber: nextCard
 
     })
@@ -89,5 +90,35 @@ export default class ActiveCollection extends Component {
     });
   }
  
- 
+  addCardToActiveCollection(cardInfo){
+    var collectionId = this.activeCollection._id;
+    let newCard = {
+      word: cardInfo.word,
+      definition: cardInfo.definition
+    }
+    axios.post(`http://localhost:5000/api/collections/${collectionId}/cards`, newCard)
+    .then((response) => {
+      console.log(response.data);
+      
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
+  deleteCardToActiveCollection(){
+    var collectionId = this.activeCollection._id;
+    let cardToDeleteId = this.state.currentCard._id;
+    axios.post(`http://localhost:5000/api/collections/${collectionId}/cards`, cardToDeleteId)
+    .then((response) => {
+      console.log(response.data);
+      
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
 }
+
+
