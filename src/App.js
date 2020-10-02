@@ -63,11 +63,9 @@ export default class App extends Component {
     }
     else if(typeof this.state.activeCollection == 'object'){
       content = (
-        <div id="active-collection">
-          <ActiveCollection
-          activeCollection={this.state.activeCollection}
-          />
-        </div>
+        <ActiveCollection
+        activeCollection={this.state.activeCollection}
+        />
       );
     }
     else{
