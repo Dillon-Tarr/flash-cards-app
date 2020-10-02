@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-
+import Popup from 'reactjs-popup'
+import 'reactjs-popup/dist/index.css';
 
 export default class ActiveCollection extends Component {
   constructor(props){
@@ -38,7 +39,44 @@ export default class ActiveCollection extends Component {
             <div className="previous-or-next-button-holder"><img className="previous-or-next-button" src={require('../../images/nextCardArrow.png')} alt="Next Button"/></div>
           </button>
         </div>
-        <button><p id="add-card-modal-button">Add a new card</p></button>
+        <Popup
+        trigger={<button><p id="add-card-modal-button">Add a new card</p></button>}
+        modal
+        nested
+      >
+        {close => (
+          <div className="modal">
+            <button className="close" onClick={close}>
+              &times;
+            </button>
+            <div className="header"> Modal Title </div>
+            <div className="content">
+              {' '}
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, a nostrum.
+              Dolorem, repellat quidem ut, minima sint vel eveniet quibusdam voluptates
+              delectus doloremque, explicabo tempore dicta adipisci fugit amet dignissimos?
+              <br />
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur sit
+              commodi beatae optio voluptatum sed eius cumque, delectus saepe repudiandae
+              explicabo nemo nam libero ad, doloribus, voluptas rem alias. Vitae?
+            </div>
+            <div className="actions">
+              <Popup
+                trigger={<button className="button"> Trigger </button>}
+                position="top center"
+                nested
+              >
+                <span>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae
+                  magni omnis delectus nemo, maxime molestiae dolorem numquam
+                  mollitia, voluptate ea, accusamus excepturi deleniti ratione
+                  sapiente! Laudantium, aperiam doloribus. Odit, aut.
+                </span>
+              </Popup>
+            </div>
+          </div>
+        )}
+      </Popup>
       </div>
     )
   }
