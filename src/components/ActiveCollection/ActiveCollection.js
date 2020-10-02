@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+
 export default class ActiveCollection extends Component {
   constructor(props){
     super(props);
@@ -83,5 +84,6 @@ export default class ActiveCollection extends Component {
       displayWord: newDisplayState
     });
   }
-
+ 
+ 
 }
