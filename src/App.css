@@ -83,7 +83,10 @@ button {
   font-size: 4.4rem;
 }
 #active-collection {
+  display: flex;
+  flex-flow: column nowrap;
   justify-content: center;
+  align-items: center;
   width: 98%;
   margin: 0px auto;
   padding: 0px;
@@ -154,6 +157,13 @@ button {
 #card-count-text {
   font-size: 1.5rem;
   margin: 0px 0px .5rem;
+}
+#add-card-modal-button {
+  padding: .4rem;
+  border: solid rgb(197, 197, 197) 2px;
+  border-radius: 8px;
+  background-color: rgb(14, 14, 14);
+  color: whitesmoke;
 }
 
 @media only screen and (max-width: 399px) {
