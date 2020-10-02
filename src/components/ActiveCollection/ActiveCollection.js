@@ -49,30 +49,19 @@ export default class ActiveCollection extends Component {
             <button className="close" onClick={close}>
               &times;
             </button>
-            <div className="header"> Modal Title </div>
+            <div className="header"> Add a new card to your "{this.state.activeCollection.title}" collection </div>
             <div className="content">
-              {' '}
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, a nostrum.
-              Dolorem, repellat quidem ut, minima sint vel eveniet quibusdam voluptates
-              delectus doloremque, explicabo tempore dicta adipisci fugit amet dignissimos?
-              <br />
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur sit
-              commodi beatae optio voluptatum sed eius cumque, delectus saepe repudiandae
-              explicabo nemo nam libero ad, doloribus, voluptas rem alias. Vitae?
-            </div>
-            <div className="actions">
-              <Popup
-                trigger={<button className="button"> Trigger </button>}
-                position="top center"
-                nested
-              >
-                <span>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae
-                  magni omnis delectus nemo, maxime molestiae dolorem numquam
-                  mollitia, voluptate ea, accusamus excepturi deleniti ratione
-                  sapiente! Laudantium, aperiam doloribus. Odit, aut.
-                </span>
-              </Popup>
+              <form>
+                <label htmlFor="new-word-input">
+                  Word:&nbsp;<input type="text" name="new-word-input" id="new-word-input"></input>
+                </label>
+                <label htmlFor="new-definition-input">
+                  Definition:&nbsp;<input type="text" name="new-definition-input" id="new-definition-input"></input>
+                </label>
+                <label>
+                  <input type="button" value="ADD CARD" onClick={this.getNewCardValues}></input>
+                </label>
+              </form>
             </div>
           </div>
         )}
@@ -128,24 +117,40 @@ export default class ActiveCollection extends Component {
     });
   }
  
-  addCardToActiveCollection(cardInfo){
-    var collectionId = this.activeCollection._id;
+  getNewCardValues = () => {
     let newCard = {
-      word: cardInfo.word,
-      definition: cardInfo.definition
+      word: document.getElementById("new-word-input").value,
+      definition: document.getElementById("new-definition-input").value
     }
+    return this.addCardToActiveCollection(newCard);
+  }
+
+  addCardToActiveCollection = (newCard) => {
+    var collectionId = this.state.activeCollection._id;
     axios.post(`http://localhost:5000/api/collections/${collectionId}/cards`, newCard)
     .then((response) => {
       console.log(response.data);
-      
+      axios.get(`http://localhost:5000/api/collections/${collectionId}`)
+      .then((response) => {
+        console.log(response.data);
+        this.setState({
+          activeCollection: response.data,
+          cards: this.state.activeCollection.cards
+        });
+        this.forceUpdate(); //THIS ISN'T WORKING!!!
+      })
+      .catch((error) => {
+        console.log(error);
+      })
     })
     .catch((error) => {
       console.log(error);
+      console.log(newCard, collectionId);
     })
   }
 
-  deleteCardFromActiveCollection(){
-    var collectionId = this.activeCollection._id;
+  deleteCardFromActiveCollection = () => {
+    var collectionId = this.state.activeCollection._id;
     let cardToDeleteId = this.state.currentCard._id;
     axios.delete(`http://localhost:5000/api/collections/${collectionId}/cards/${cardToDeleteId}`)
     .then((response) => {
