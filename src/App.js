@@ -65,6 +65,7 @@ export default class App extends Component {
       content = (
         <ActiveCollection
         activeCollection={this.state.activeCollection}
+        addCardToActiveCollection={this.addCardToActiveCollection}
         />
       );
     }
@@ -98,6 +99,25 @@ export default class App extends Component {
     this.setState({
       activeCollection: collection
     });
+  }
+
+  addCardToActiveCollection = (newCard) => {
+    var collectionId = this.state.activeCollection._id;
+    axios.post(`http://localhost:5000/api/collections/${collectionId}/cards`, newCard)
+    .then((response) => {
+      console.log(response.data);
+      console.log('The line above here is the card returned from the server that you just posted.');
+      let updatedCollection = this.state.activeCollection;
+      updatedCollection.cards.push(response.data);
+      this.setState({
+        activeCollection: updatedCollection,
+        cards: updatedCollection.cards
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      console.log(newCard, collectionId);
+    })
   }
 
   // `5f726d81879a6422645f5609`

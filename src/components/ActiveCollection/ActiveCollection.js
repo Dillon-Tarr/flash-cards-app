@@ -11,7 +11,7 @@ export default class ActiveCollection extends Component {
       cards: this.props.activeCollection.cards,
       currentCard: this.props.activeCollection.cards[0],
       currentCardNumber: 1,
-      displayWord: false
+      displayWord: true
     }
   }
 
@@ -59,7 +59,10 @@ export default class ActiveCollection extends Component {
                   Definition:&nbsp;<input type="text" name="new-definition-input" id="new-definition-input"></input>
                 </label>
                 <label>
-                  <input type="button" value="ADD CARD" onClick={this.getNewCardValues}></input>
+                  <input type="button" value="ADD CARD" onClick={() => {
+                    this.getNewCardValues();
+                    close();
+                    }}></input>
                 </label>
               </form>
             </div>
@@ -71,7 +74,7 @@ export default class ActiveCollection extends Component {
   }
 
   renderWordOrDefinition(){
-    if(this.state.displayWord === false){
+    if(this.state.displayWord === true){
       return (
         <p id="word">{this.state.currentCard.word}</p>
       )
@@ -122,31 +125,7 @@ export default class ActiveCollection extends Component {
       word: document.getElementById("new-word-input").value,
       definition: document.getElementById("new-definition-input").value
     }
-    return this.addCardToActiveCollection(newCard);
-  }
-
-  addCardToActiveCollection = (newCard) => {
-    var collectionId = this.state.activeCollection._id;
-    axios.post(`http://localhost:5000/api/collections/${collectionId}/cards`, newCard)
-    .then((response) => {
-      console.log(response.data);
-      axios.get(`http://localhost:5000/api/collections/${collectionId}`)
-      .then((response) => {
-        console.log(response.data);
-        this.setState({
-          activeCollection: response.data,
-          cards: this.state.activeCollection.cards
-        });
-        this.forceUpdate(); //THIS ISN'T WORKING!!!
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-    })
-    .catch((error) => {
-      console.log(error);
-      console.log(newCard, collectionId);
-    })
+    return this.props.addCardToActiveCollection(newCard);
   }
 
   deleteCardFromActiveCollection = () => {
