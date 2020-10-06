@@ -66,6 +66,7 @@ export default class App extends Component {
         <ActiveCollection
         activeCollection={this.state.activeCollection}
         addCardToActiveCollection={this.addCardToActiveCollection}
+        deleteCardFromActiveCollection={this.deleteCardFromActiveCollection}
         />
       );
     }
@@ -107,11 +108,17 @@ export default class App extends Component {
     .then((response) => {
       console.log(response.data);
       console.log('The line above here is the card returned from the server that you just posted.');
+
       let updatedCollection = this.state.activeCollection;
       updatedCollection.cards.push(response.data);
+
+      let updatedCollections = this.state.allCollections;
+      let collectionIndex = updatedCollections.findIndex((el) => el._id === collectionId);
+      updatedCollections[collectionIndex].cards = updatedCollection.cards;
+
       this.setState({
-        activeCollection: updatedCollection,
-        cards: updatedCollection.cards
+        allCollections: updatedCollections,
+        activeCollection: updatedCollection
       });
     })
     .catch((error) => {
@@ -120,8 +127,42 @@ export default class App extends Component {
     })
   }
 
+  deleteCardFromActiveCollection = (currentCard) => {
+    var collectionId = this.state.activeCollection._id;
+    let cardToDeleteId = currentCard._id;
+    axios.delete(`http://localhost:5000/api/collections/${collectionId}/cards/${cardToDeleteId}`)
+    .then((response) => {
+      console.log(response.data);
+      console.log('The line above here is the card returned from the server that you just DELETED.');
+
+      let updatedCards = this.state.activeCollection.cards.filter((el) => el._id !== cardToDeleteId);
+      let updatedCollection = this.state.activeCollection;
+      updatedCollection.cards = updatedCards;
+
+      let updatedCollections = this.state.allCollections;
+      let collectionIndex = updatedCollections.findIndex((el) => el._id === collectionId);
+      updatedCollections[collectionIndex].cards = updatedCards;
+
+      this.setState({
+        allCollections: updatedCollections,
+        activeCollection: updatedCollection
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
   // `5f726d81879a6422645f5609`
   //super minor change
   
   
 }
+
+/* Known issues:
+
+- Adding cards to a collection after deleting a card does not update the cards on the page.
+- Words or definitions can overflow the space on the card. We are aware of that problem. There were higher priority things to address.
+
+*/
+

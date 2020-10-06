@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css';
 
@@ -8,7 +7,6 @@ export default class ActiveCollection extends Component {
     super(props);
     this.state = {
       activeCollection: this.props.activeCollection,
-      cards: this.props.activeCollection.cards,
       currentCard: this.props.activeCollection.cards[0],
       currentCardNumber: 1,
       displayWord: true
@@ -30,7 +28,7 @@ export default class ActiveCollection extends Component {
               {this.renderWordOrDefinition()}
                 <div>
                   <p id="flip-card-image-holder"><img id="flip-card-image" src={require('../../images/flipArrow.png')} alt="Flip Card"/></p>
-                  <p id="card-count-text">{this.state.currentCardNumber}/{this.state.cards.length}</p>
+                  <p id="card-count-text">{this.state.currentCardNumber}/{this.props.activeCollection.cards.length}</p>
                 </div>
               </div>
             </button>
@@ -39,6 +37,32 @@ export default class ActiveCollection extends Component {
             <div className="previous-or-next-button-holder"><img className="previous-or-next-button" src={require('../../images/nextCardArrow.png')} alt="Next Button"/></div>
           </button>
         </div>
+        <Popup
+        trigger={<button><p id="delete-card-modal-button">Delete this card</p></button>}
+        modal
+        nested
+      >
+        {close => (
+          <div className="modal">
+            <button className="close" onClick={close}>
+              &times;
+            </button>
+            <div className="header"> Are you sure you want to delete your "{this.state.currentCard.word}" card? </div>
+            <div className="content">
+              <input type="button" value="YES, delete this card." onClick={() => {
+                this.props.deleteCardFromActiveCollection(this.state.currentCard);
+                close();
+                setTimeout(function(){return 'Waited .5 second.'}, 500)
+                this.updateAfterDelete();
+                }}/>
+              <input type="button" value="No, get me outta here!" onClick={() => {
+                close();
+                }}/>
+
+            </div>
+          </div>
+        )}
+        </Popup>
         <Popup
         trigger={<button><p id="add-card-modal-button">Add a new card</p></button>}
         modal
@@ -87,32 +111,33 @@ export default class ActiveCollection extends Component {
   }
 
   getNextCard = () => {
-    let nextCard;
-    if(this.state.currentCardNumber === this.state.cards.length){
-      nextCard = 1;      
+    let nextCardNumber;
+    if(this.state.currentCardNumber === this.props.activeCollection.cards.length){
+      nextCardNumber = 1;      
     }
     else{
-      nextCard = this.state.currentCardNumber + 1;
+      nextCardNumber = this.state.currentCardNumber + 1;
     }
     this.setState({
-      currentCard: this.state.cards[nextCard - 1],
-      currentCardNumber: nextCard
+      currentCard: this.props.activeCollection.cards[nextCardNumber - 1],
+      currentCardNumber: nextCardNumber
     })
   }
-  getPreviousCard = () => {
-    let nextCard;
-    if(this.state.currentCardNumber === 1){
-      nextCard = this.state.cards.length;      
-    }
-    else{
-      nextCard = this.state.currentCardNumber - 1;
-    }
-    this.setState({
-      currentCard: this.state.cards[nextCard - 1],
-      currentCardNumber: nextCard
 
+  getPreviousCard = () => {
+    let previousCardNumber;
+    if(this.state.currentCardNumber === 1){
+      previousCardNumber = this.props.activeCollection.cards.length;
+    }
+    else{
+      previousCardNumber = this.state.currentCardNumber - 1;
+    }
+    this.setState({
+      currentCard: this.props.activeCollection.cards[previousCardNumber - 1],
+      currentCardNumber: previousCardNumber
     })
   }
+
   flipCard = () => {
     let newDisplayState = !this.state.displayWord;
     this.setState({
@@ -128,19 +153,20 @@ export default class ActiveCollection extends Component {
     return this.props.addCardToActiveCollection(newCard);
   }
 
-  deleteCardFromActiveCollection = () => {
-    var collectionId = this.state.activeCollection._id;
-    let cardToDeleteId = this.state.currentCard._id;
-    axios.delete(`http://localhost:5000/api/collections/${collectionId}/cards/${cardToDeleteId}`)
-    .then((response) => {
-      console.log(response.data);
-      
-    })
-    .catch((error) => {
-      console.log(error);
+  updateAfterDelete = () => {
+    let updatedCardNumber;
+    if(this.state.currentCardNumber === this.props.activeCollection.cards.length){
+      updatedCardNumber = this.state.currentCardNumber - 1;
+    }
+    else{
+      updatedCardNumber = this.state.currentCardNumber;
+    }
+    let updatedCards = this.props.activeCollection.cards;
+    this.setState({
+      cards: updatedCards,
+      currentCard: this.props.activeCollection.cards[updatedCardNumber - 1],
+      currentCardNumber: updatedCardNumber
     })
   }
 
 }
-
-
