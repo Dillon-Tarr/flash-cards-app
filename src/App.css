@@ -6,6 +6,9 @@ body {
 button {
   display: contents;
 }
+input {
+  margin: .2rem;
+}
 
 .flex-container {
   display: flex;
@@ -99,6 +102,9 @@ button {
   background: #ffffff;
   border-radius: 18px;
   border: 1px solid #cfcece;
+}
+.content {
+  text-align: center;
 }
 
 #main-content {
@@ -202,6 +208,14 @@ button {
   color: rgb(34, 34, 34);
   font-weight: 600;
 }
+#delete-yes-button {
+  margin: .5rem .5rem .5rem 0px;
+  background-color: rgba(255, 137, 137, 0.699)
+}
+#delete-no-button {
+  margin: .5rem .5rem .5rem 0px;
+  background-color: rgba(177, 255, 177, 0.849)
+}
 #add-card-modal-button {
   padding: .4rem;
   border: solid rgb(197, 197, 197) 2px;
@@ -300,5 +314,11 @@ button {
   #card-count-text {
     font-size: 1.2rem;
     margin: 0px 0px .4rem;
+  }
+  #new-word-input{
+    max-width: 144px;
+  }
+  #new-definition-input{
+    max-width: 144px;
   }
 }

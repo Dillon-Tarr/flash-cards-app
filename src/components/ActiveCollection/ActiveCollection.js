@@ -49,13 +49,13 @@ export default class ActiveCollection extends Component {
             </button>
             <div className="header"> Are you sure you want to delete your "{this.state.currentCard.word}" card? </div>
             <div className="content">
-              <input type="button" value="YES, delete this card." onClick={() => {
+              <input id="delete-yes-button" type="button" value="YES, delete this card." onClick={() => {
                 this.props.deleteCardFromActiveCollection(this.state.currentCard);
                 close();
                 setTimeout(function(){return 'Waited .5 second.'}, 500)
                 this.updateAfterDelete();
                 }}/>
-              <input type="button" value="No, get me outta here!" onClick={() => {
+              <input id="delete-no-button" type="button" value="No, get me outta here!" onClick={() => {
                 close();
                 }}/>
 
@@ -74,13 +74,13 @@ export default class ActiveCollection extends Component {
               &times;
             </button>
             <div className="header"> Add a new card to your "{this.state.activeCollection.title}" collection </div>
-            <div className="content">
+            <div className="content" id="add-card-form">
               <form>
                 <label htmlFor="new-word-input">
-                  Word:&nbsp;<input type="text" name="new-word-input" id="new-word-input"></input>
+                  <div>Word:&nbsp;<input type="text" name="new-word-input" id="new-word-input"></input></div>
                 </label>
                 <label htmlFor="new-definition-input">
-                  Definition:&nbsp;<input type="text" name="new-definition-input" id="new-definition-input"></input>
+                  <div>Definition:&nbsp;<input type="text" name="new-definition-input" id="new-definition-input"></input></div>
                 </label>
                 <label>
                   <input type="button" value="ADD CARD" onClick={() => {

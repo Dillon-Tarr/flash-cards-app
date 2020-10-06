@@ -161,7 +161,6 @@ export default class App extends Component {
 
 /* Known issues:
 
-- Adding cards to a collection after deleting a card does not update the cards on the page.
 - Words or definitions can overflow the space on the card. We are aware of that problem. There were higher priority things to address.
 
 */
